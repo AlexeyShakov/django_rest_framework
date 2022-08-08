@@ -18,13 +18,14 @@ from django.urls import path, include
 from women.views import *
 from rest_framework import routers
 
-# SimpleRouter is needed to create a collection of needed routes
-router = routers.SimpleRouter()
-router.register(r"women", WomenViewSet)
+# # SimpleRouter is needed to create a collection of needed routes
+# router = routers.SimpleRouter()
+# router.register(r"women", WomenViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/v1/', include(router.urls)), # how the URL will look like '127.0.0.1:8000/api/v1/women/'
-    # path('api/v1/womenlist/', WomenViewSet.as_view({"get": "list"})),
-    # path('api/v1/womencrud/<int:pk>/', WomenViewSet.as_view({"put": "update"})),
+    # path('api/v1/', include(router.urls)), # how the URL will look like '127.0.0.1:8000/api/v1/women/'
+    path('api/v1/women/', WomenApiList.as_view()),
+    path('api/v1/women/<int:pk>/', WomenApiUpdate.as_view()),
+    path('api/v1/women_delete/<int:pk>/', WomenRUD.as_view()),
 ]

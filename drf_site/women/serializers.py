@@ -33,6 +33,8 @@ from .models import Women
 # data in the DB
 # We have to have the same attributes in Serializer class as attributes in the model class
 class WomenSerializer(serializers.ModelSerializer):
+    # The code below is needed to set the one user in the admin panel
+    user = serializers.HiddenField(default=serializers.CurrentUserDefault())
     # Inner class Meta allows us to get the access to attributes of needed model class
     class Meta:
         model = Women
