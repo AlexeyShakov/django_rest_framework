@@ -32,26 +32,11 @@ from .models import Women
 # Serializer converts python objects to JSON and vice versa. Moreover Serializser has to add, delete and update
 # data in the DB
 # We have to have the same attributes in Serializer class as attributes in the model class
-class WomenSerializer(serializers.Serializer):
-    title = serializers.CharField(max_length=255)
-    content = serializers.CharField()
-    time_create = serializers.DateTimeField(read_only=True)
-    time_update = serializers.DateTimeField(read_only=True)
-    is_published = serializers.BooleanField(default=True)
-    cat_id = serializers.IntegerField()
+class WomenSerializer(serializers.ModelSerializer):
+    # Inner class Meta allows us to get the access to attributes of needed model class
+    class Meta:
+        model = Women
+        fields = "__all__"
 
-    def create(self, validated_data):
-        return Women.objects.create(**validated_data)
-
-    # instance is a class object; validated_data is the data we wanna update
-    def update(self, instance, validated_data):
-        instance.title = validated_data.get("title", instance.title)
-        instance.content = validated_data.get("content", instance.content)
-        instance.time_update = validated_data.get("time_update", instance.time_update)
-        instance.is_published = validated_data.get("is_published", instance.is_published)
-        instance.cat_id = validated_data.get("cat_id", instance.cat_id)
-        # Save updating in the DB. In that case the serializer.save() calls for update() method from Serializer
-        instance.save()
-        return instance
 
 
