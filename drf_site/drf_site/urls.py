@@ -15,10 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from women.views import WomenApiList
+from women.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # For POST and GET requests
     path('api/v1/womenlist/', WomenApiList.as_view()),
-    # path('api/v1/womenlist/<int:pk>/', .as_view()),  # for PUT request
+    # path('api/v1/womenlist/<int:pk>/', WomenApiUpdate.as_view()),  # for PUT request
+    # for reading, updating and deleting data
+    path('api/v1/womencrud/<int:pk>/', WomenRUD.as_view()),  
+
 ]
