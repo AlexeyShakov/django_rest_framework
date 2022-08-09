@@ -1,13 +1,15 @@
 from django.forms import model_to_dict
 from django.shortcuts import render
 from rest_framework import generics, viewsets
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import Women, Category
 from .permissions import IsAdminOrReadOnly, IsOwnerOrReadOnly
 from .serializers import WomenSerializer
 from rest_framework.views import APIView
-from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, IsAuthenticated
+
 
 # Create your views here.
 
@@ -43,7 +45,9 @@ class WomenApiList(generics.ListCreateAPIView):
 class WomenApiUpdate(generics.RetrieveUpdateAPIView):
     queryset = Women.objects.all()
     serializer_class = WomenSerializer
-    permission_classes = (IsOwnerOrReadOnly, )
+    permission_classes = (IsAuthenticated, )
+    # We clarify which authentification we wanna use
+    authentication_classes = (TokenAuthentication,)
 
 
 class WomenRUD(generics.RetrieveDestroyAPIView):
