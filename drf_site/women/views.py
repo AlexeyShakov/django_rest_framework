@@ -47,7 +47,7 @@ class WomenApiUpdate(generics.RetrieveUpdateAPIView):
     serializer_class = WomenSerializer
     permission_classes = (IsAuthenticated, )
     # We clarify which authentification we wanna use
-    authentication_classes = (TokenAuthentication,)
+    # authentication_classes = (TokenAuthentication,)
 
 
 class WomenRUD(generics.RetrieveDestroyAPIView):
